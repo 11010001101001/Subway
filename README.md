@@ -9,7 +9,7 @@
 ## Update 🎉 
 - some code cleaning with UI & behavior boosting done, but the main part, like hand made map i mean) left the same. Let it be. 
 
-![MyCollages](https://github.com/fresh-Blood/Metro_SPB_Dijkstras_algorithm/assets/88098218/982e433c-cbed-4309-9d08-a51d656013e2)
+![Unknown](https://github.com/user-attachments/assets/66a2de31-0fa1-4243-956f-f891db9da52a)
 
 ## ☕️🙈
 - **TON**: UQCQclFDQnQkHI4bJETisvn4QAZevjMWx5mjC3AErZaXvhlU
