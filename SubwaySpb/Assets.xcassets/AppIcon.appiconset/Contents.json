@@ -1,57 +1,9 @@
 {
   "images" : [
     {
-      "filename" : "logo-moskovskiy-metropoliten-2-2.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-3.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "20x20"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-4.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-5.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "29x29"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-6.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-9.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "40x40"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-7.png",
-      "idiom" : "iphone",
-      "scale" : "2x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-8.png",
-      "idiom" : "iphone",
-      "scale" : "3x",
-      "size" : "60x60"
-    },
-    {
-      "filename" : "logo-moskovskiy-metropoliten-2-10.png",
-      "idiom" : "ios-marketing",
-      "scale" : "1x",
+      "filename" : "AppIcon~ios-marketing.png",
+      "idiom" : "universal",
+      "platform" : "ios",
       "size" : "1024x1024"
     }
   ],

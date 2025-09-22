@@ -2,15 +2,23 @@ import UIKit
 import Foundation
 
 final class MapViewController: UIViewController {
-    @IBOutlet weak var mapScrollView: UIScrollView!
-    @IBOutlet weak var map: UIView!
-    
-    private let vibrateManager = VibrateManager()
-    
     private lazy var builtPathbutton = makeButton(title: "Построить", action: #selector(builtPathTapped))
     private lazy var cancelButton = makeButton(title: "Сброс", action: #selector(cancelButtonTapped))
     private lazy var detailsButton = makeButton(title: "Подробнее", action: #selector(showDetailsTapped))
-    
+
+    private lazy var mapScrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.delegate = self
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+
+    private lazy var map: BezierCurves = {
+        let view = BezierCurves()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
     private lazy var hStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [builtPathbutton, cancelButton])
         stack.axis = .horizontal
@@ -19,7 +27,7 @@ final class MapViewController: UIViewController {
         stack.spacing = Constants.stackSpacing
         return stack
     }()
-    
+
     private lazy var vStackView: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [hStackView, detailsButton])
         stack.axis = .vertical
@@ -30,34 +38,6 @@ final class MapViewController: UIViewController {
         return stack
     }()
 
-    @objc private func builtPathTapped(gesture: UILongPressGestureRecognizer) {
-        guard Singleton.pathWay.count == Constants.minStationsPathCount,
-              Singleton.graph.path.isEmpty else { return }
-        
-        proceedGestureAction(gesture: gesture, button: builtPathbutton, action: { [weak self] in
-            let fromId = Singleton.pathWay[0]
-            let toId = Singleton.pathWay[1]
-            
-            Singleton.graph.dijkstrasAlgorithm(from: Vertex(data: Station(id: fromId, name: Singleton.graph.info[fromId]!)),
-                                               to: Vertex(data: Station(id: toId, name: Singleton.graph.info[toId]!)))
-            self?.animatePath()
-        })
-    }
-    
-    @objc private func cancelButtonTapped(gesture: UILongPressGestureRecognizer) {
-        guard !Singleton.pathWay.isEmpty else { return }
-        proceedGestureAction(gesture: gesture, button: cancelButton, action: { [weak self] in
-            self?.map.subviews.forEach { view in view.withAnimation(action: { view.deselect() }) }
-            Singleton.clearPath()
-        })
-    }
-    
-    @objc private func showDetailsTapped(gesture: UILongPressGestureRecognizer) {
-        proceedGestureAction(gesture: gesture, button: detailsButton, action: { [weak self] in
-            self?.navigationController?.pushViewController(DetailsViewController(), animated: true)
-        })
-    }
-    
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +46,7 @@ final class MapViewController: UIViewController {
         setZoomTap()
         mapScrollView.zoomScale = Constants.minZoomScale
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Singleton.clearPath()
@@ -74,82 +54,56 @@ final class MapViewController: UIViewController {
             $0.deselect()
         }
     }
-    
-    private func proceedGestureAction(gesture: UILongPressGestureRecognizer,
-                                      button: UILabel,
-                                      action: Action?) {
-        if gesture.state == .began {
-            vibrateManager.vibrateSelection()
-            button.withAnimation(action: {
-                button.transform = CGAffineTransform(scaleX: Constants.minZoomScale, y: Constants.minZoomScale)
-            })
-        } else if gesture.state == .ended {
-            button.withAnimation(action: {
-                button.transform = .identity
-            })
-            
-            action?()
-        }
-    }
-    
-    private func makeButton(title: String, action: Selector?) -> UILabel {
-        let label = UILabel()
-        label.text = title
-        label.font = .systemFont(ofSize: 20, weight: .light)
-        label.backgroundColor = .black
-        label.textAlignment = .center
-        label.isUserInteractionEnabled = true
-        label.layer.opacity = 0.5
-        label.layer.borderWidth = 1
-        label.layer.borderColor = UIColor.darkGray.cgColor
-        label.layer.cornerRadius = 16
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        let gesture = UILongPressGestureRecognizer(target: self, action: action)
-        gesture.minimumPressDuration = .zero
-        label.addGestureRecognizer(gesture)
-        return label
-    }
-    
-    private func setZoomTap() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        map.addGestureRecognizer(tapGestureRecognizer)
-    }
-    
-    @objc private func doubleTap(gesture: UITapGestureRecognizer) {
-        let point = gesture.location(in: map)
-        let rect = CGRect(origin: point, size: CGSize(width: mapScrollView.frame.width / 2,
-                                                      height: mapScrollView.frame.height / 2))
-        
-        if mapScrollView.zoomScale == Constants.minZoomScale {
-            UIView.animate(withDuration: Constants.animationDuration,
-                           animations: {
-                self.mapScrollView.zoom(to: rect, animated: true)
-            })
-        } else {
-            UIView.animate(withDuration: Constants.animationDuration,
-                           animations: {
-                self.mapScrollView.zoomScale = Constants.minZoomScale
-            })
-        }
-        
-        vibrateManager.vibrateFeedback(style: .rigid)
-    }
-    
+
+    // MARK: setupUI
     private func setupUI() {
         configureMap()
-        view.addSubview(vStackView)
-        
+        configureButtons()
+    }
+
+    private func configureButtons() {
+        // TODO: not working 
+        let container = UIVisualEffectView(effect: UIGlassContainerEffect())
+        container.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(container)
+        container.contentView.addSubview(vStackView)
+
         NSLayoutConstraint.activate([
-            vStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            vStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            vStackView.heightAnchor.constraint(equalToConstant: 150),
-            vStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            container.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            container.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            container.heightAnchor.constraint(equalToConstant: 200)
+        ])
+
+        NSLayoutConstraint.activate([
+            vStackView.leadingAnchor.constraint(equalTo: container.contentView.leadingAnchor, constant: 16),
+            vStackView.trailingAnchor.constraint(equalTo: container.contentView.trailingAnchor, constant: -16),
+            vStackView.bottomAnchor.constraint(equalTo: container.contentView.bottomAnchor, constant: -40),
+            vStackView.heightAnchor.constraint(equalToConstant: 150)
         ])
     }
-    
+
     private func configureMap() {
+        mapScrollView.addSubview(map)
+        view.addSubview(mapScrollView)
+
+        NSLayoutConstraint.activate([
+            mapScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapScrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            mapScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+
+        NSLayoutConstraint.activate([
+            map.topAnchor.constraint(equalTo: mapScrollView.contentLayoutGuide.topAnchor),
+            map.leadingAnchor.constraint(equalTo: mapScrollView.contentLayoutGuide.leadingAnchor),
+            map.trailingAnchor.constraint(equalTo: mapScrollView.contentLayoutGuide.trailingAnchor),
+            map.bottomAnchor.constraint(equalTo: mapScrollView.contentLayoutGuide.bottomAnchor),
+
+            map.widthAnchor.constraint(equalTo: mapScrollView.frameLayoutGuide.widthAnchor),
+            map.heightAnchor.constraint(equalTo: mapScrollView.frameLayoutGuide.heightAnchor)
+        ])
+
         mapScrollView.minimumZoomScale = Constants.minZoomScale
         mapScrollView.maximumZoomScale = Constants.maxZoomScale
         mapScrollView.contentInsetAdjustmentBehavior = .always
@@ -160,8 +114,39 @@ final class MapViewController: UIViewController {
         mapScrollView.showsVerticalScrollIndicator = false
         mapScrollView.showsHorizontalScrollIndicator = false
     }
-    
-    private func animatePath() {
+
+    private func setZoomTap() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTap))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        map.addGestureRecognizer(tapGestureRecognizer)
+    }
+
+    @objc private func doubleTap(gesture: UITapGestureRecognizer) {
+        let pointInView = gesture.location(in: map)
+
+        if mapScrollView.zoomScale == Constants.minZoomScale {
+            let newZoomScale = 3.0
+            let scrollViewSize = mapScrollView.bounds.size
+
+            let width = scrollViewSize.width / newZoomScale
+            let height = scrollViewSize.height / newZoomScale
+            let originX = pointInView.x - (width / 2.0)
+            let originY = pointInView.y - (height / 2.0)
+
+            let rectToZoom = CGRect(x: originX, y: originY, width: width, height: height)
+            mapScrollView.zoom(to: rectToZoom, animated: true)
+
+        } else {
+            mapScrollView.setZoomScale(Constants.minZoomScale, animated: true)
+        }
+
+        VibrateManager().vibrateFeedback(style: .rigid)
+    }
+}
+
+// MARK: - Private
+private extension MapViewController {
+    func animatePath() {
         for view in map.subviews {
             for vertex in Singleton.graph.path {
                 if vertex.data.id == view.tag {
@@ -170,8 +155,40 @@ final class MapViewController: UIViewController {
             }
         }
     }
+
+    func makeButton(title: String, action: Selector) -> UIButton {
+        var configuration =  UIButton.Configuration.clearGlass()
+        configuration.title = title
+        let button = UIButton(configuration: configuration)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+
+    @objc func builtPathTapped() {
+        guard Singleton.pathWay.count == Constants.minStationsPathCount,
+              Singleton.graph.path.isEmpty else { return }
+
+        let fromId = Singleton.pathWay[0]
+        let toId = Singleton.pathWay[1]
+
+        Singleton.graph.dijkstrasAlgorithm(from: Vertex(data: Station(id: fromId, name: Singleton.graph.info[fromId]!)),
+                                           to: Vertex(data: Station(id: toId, name: Singleton.graph.info[toId]!)))
+        animatePath()
+    }
+
+    @objc func cancelButtonTapped() {
+        guard !Singleton.pathWay.isEmpty else { return }
+        map.subviews.forEach { view in view.withAnimation(action: { view.deselect() }) }
+        Singleton.clearPath()
+    }
+
+    @objc func showDetailsTapped() {
+        navigationController?.pushViewController(DetailsViewController(), animated: true)
+    }
 }
 
+// MARK: - UIScrollViewDelegate
 extension MapViewController: UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? { map }
 }

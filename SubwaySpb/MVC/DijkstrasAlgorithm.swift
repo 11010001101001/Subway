@@ -69,7 +69,7 @@ extension AdjacencyList {
             pathDetails.append("🏁 СТАРТ: \(startStation.data.name)")
             path.removeFirst()
             
-            var sortedDistancies = distanciesCopy.sorted(by: {$0.value < $1.value})
+            let sortedDistancies = distanciesCopy.sorted(by: {$0.value < $1.value})
 
             sortedDistancies.forEach { distance in
                 let station = distance.key
@@ -77,11 +77,10 @@ extension AdjacencyList {
                 let distanceToStation = distance.value
                 let destinationStationName = to.data.name
                 let startStationName = from.data.name
-                let isStartStation = stationName == startStationName
                 let isFinishStation = stationName == destinationStationName
                 
                 if self.path.contains(station) && !self.pathDetails.contains(stationName) {
-                    var message = isFinishStation ? "✅ ФИНИШ: " : ""
+                    let message = isFinishStation ? "✅ ФИНИШ: " : ""
                     self.pathDetails.append("\(message) \(distanceToStation)' до станции \(stationName)")
                 }
             }
