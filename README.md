@@ -1,5 +1,3 @@
-# Subway's map of Saint - Petersburg city, 2021
-
 ![Unknown](https://github.com/user-attachments/assets/66a2de31-0fa1-4243-956f-f891db9da52a)
 
 ## ☕️🙈
