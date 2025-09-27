@@ -1,4 +1,4 @@
-![Unknown](https://github.com/user-attachments/assets/66a2de31-0fa1-4243-956f-f891db9da52a)
+![Unknown](https://github.com/user-attachments/assets/b16d282f-14a5-48ca-9d8a-3a296baf15a8)
 
 ## ☕️
 - **TON**: UQCQclFDQnQkHI4bJETisvn4QAZevjMWx5mjC3AErZaXvhlU
