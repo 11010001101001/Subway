@@ -86,7 +86,7 @@ extension Graph: GraphProtocol {
 
         /// logging path info
         guard let startStation = path.first else { return }
-        pathDetails.append("🏁 СТАРТ: \(startStation.data.name)")
+        pathDetails.append("🚦 СТАРТ: \(startStation.data.name)")
         path.removeFirst()
 
         let sortedDistancies = distanciesCopy.sorted(by: {$0.value < $1.value})
@@ -98,7 +98,7 @@ extension Graph: GraphProtocol {
             let isFinishStation = stationName == destinationStationName
 
             if self.path.contains(station) && !self.pathDetails.contains(stationName) {
-                let message = isFinishStation ? "✅ ФИНИШ: " : ""
+                let message = isFinishStation ? "🏁 ФИНИШ: " : ""
                 self.pathDetails.append("\(message) \(distanceToStation)' до станции \(stationName)")
             }
         }

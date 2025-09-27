@@ -29,7 +29,7 @@ final class PathDetailsViewController: UITableViewController {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = .white
         view.addSubview(pathList)
-        pathDetails.isEmpty ? dataArr.append("🚇 Машинист отдыхает... 💤") : (dataArr = pathDetails)
+        pathDetails.isEmpty ? dataArr.append("🚇 Машинист отдыхает 💤") : (dataArr = pathDetails)
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,7 +37,7 @@ final class PathDetailsViewController: UITableViewController {
         guard let cell = pathList.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PathCell else {
             return UITableViewCell(frame: .zero)
         }
-        cell.stationLabel.text = dataArr[indexPath.row]
+        cell.stationLabel.text = pathDetails.isEmpty ? dataArr[indexPath.row] : "--> \(dataArr[indexPath.row])"
         cell.selectionStyle = .none
         return cell
     }
