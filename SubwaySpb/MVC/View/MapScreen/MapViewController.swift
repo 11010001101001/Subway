@@ -56,11 +56,6 @@ final class MapViewController: UIViewController {
         setZoomTap()
         mapScrollView.zoomScale = Constants.minZoomScale
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        map.clearPath()
-    }
 }
 
 // MARK: - Private

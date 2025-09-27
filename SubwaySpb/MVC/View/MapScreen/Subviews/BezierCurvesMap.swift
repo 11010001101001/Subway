@@ -500,7 +500,7 @@ extension BezierCurvesMap {
         dimLayer = CAShapeLayer()
         dimLayer?.path = dimPath.cgPath
         dimLayer?.fillRule = .evenOdd
-        dimLayer?.fillColor = UIColor.black.withAlphaComponent(0.9).cgColor
+        dimLayer?.fillColor = UIColor.black.withAlphaComponent(0.6).cgColor
         dimLayer?.opacity = .zero
 
         guard let dimLayer else { return }
