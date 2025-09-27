@@ -2,7 +2,8 @@ import UIKit
 import Foundation
 
 final class MapViewController: UIViewController {
-    private lazy var builtPathbutton = makeButton(title: "Построить", action: #selector(builtPathTapped))
+    private let graph: GraphProtocol = Graph<Station>()
+    private lazy var buildPathbutton = makeButton(title: "Построить", action: #selector(builtPathTapped))
     private lazy var cancelButton = makeButton(title: "Сброс", action: #selector(cancelButtonTapped))
     private lazy var detailsButton = makeButton(title: "Подробнее", action: #selector(showDetailsTapped))
 
@@ -13,14 +14,14 @@ final class MapViewController: UIViewController {
         return scroll
     }()
 
-    private lazy var map: BezierCurves = {
-        let view = BezierCurves()
+    private lazy var map: BezierCurvesMap = {
+        let view = BezierCurvesMap(graph: graph)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     private lazy var hStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [builtPathbutton, cancelButton])
+        let stack = UIStackView(arrangedSubviews: [buildPathbutton, cancelButton])
         stack.axis = .horizontal
         stack.alignment = .fill
         stack.distribution = .fillEqually
@@ -38,6 +39,15 @@ final class MapViewController: UIViewController {
         return stack
     }()
 
+    // MARK: Init
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,20 +59,22 @@ final class MapViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Singleton.clearPath()
+        graph.clearPath()
         map.subviews.forEach {
             $0.deselect()
         }
     }
+}
 
-    // MARK: setupUI
+// MARK: - Private
+private extension MapViewController {
     private func setupUI() {
         configureMap()
         configureButtons()
     }
 
     private func configureButtons() {
-        // TODO: not working 
+        // TODO: not working
         let container = UIVisualEffectView(effect: UIGlassContainerEffect())
         container.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(container)
@@ -142,15 +154,14 @@ final class MapViewController: UIViewController {
 
         VibrateManager().vibrateFeedback(style: .rigid)
     }
-}
-
-// MARK: - Private
-private extension MapViewController {
+    
     func animatePath() {
-        for view in map.subviews {
-            for vertex in Singleton.graph.path {
-                if vertex.data.id == view.tag {
-                    view.withAnimation(action: { view.select() })
+        var delay = 0.03
+        graph.path.forEach {
+            for view in map.subviews where $0.data.id == view.tag {
+                delay += 0.04
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    view.withAnimation { view.select() }
                 }
             }
         }
@@ -166,25 +177,31 @@ private extension MapViewController {
     }
 
     @objc func builtPathTapped() {
-        guard Singleton.pathWay.count == Constants.minStationsPathCount,
-              Singleton.graph.path.isEmpty else { return }
+        guard graph.pathWay.count == Constants.minStationsPathCount,
+              graph.path.isEmpty else { return }
 
-        let fromId = Singleton.pathWay[0]
-        let toId = Singleton.pathWay[1]
+        let fromId = graph.pathWay[0]
+        let toId = graph.pathWay[1]
 
-        Singleton.graph.dijkstrasAlgorithm(from: Vertex(data: Station(id: fromId, name: Singleton.graph.info[fromId]!)),
-                                           to: Vertex(data: Station(id: toId, name: Singleton.graph.info[toId]!)))
+        graph.calculateShortestPath(
+            from: Vertex(data: Station(id: fromId, name: graph.info[fromId]!)),
+            to: Vertex(data: Station(id: toId, name: graph.info[toId]!))
+        )
+        
         animatePath()
     }
 
     @objc func cancelButtonTapped() {
-        guard !Singleton.pathWay.isEmpty else { return }
-        map.subviews.forEach { view in view.withAnimation(action: { view.deselect() }) }
-        Singleton.clearPath()
+        guard !graph.pathWay.isEmpty else { return }
+        map.subviews.forEach { view in view.withAnimation { view.deselect() } }
+        graph.clearPath()
     }
 
     @objc func showDetailsTapped() {
-        navigationController?.pushViewController(DetailsViewController(), animated: true)
+        navigationController?.pushViewController(
+            PathDetailsViewController(pathDetails: graph.pathDetails),
+            animated: true
+        )
     }
 }
 

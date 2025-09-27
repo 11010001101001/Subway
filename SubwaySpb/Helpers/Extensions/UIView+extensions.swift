@@ -11,13 +11,14 @@ import UIKit
 typealias Action = (() -> Void)
 
 extension UIView {
-    func withAnimation(action: Action?) {
-        UIView.animate(withDuration: Constants.animationDuration,
-                       delay: .zero,
-                       options: .curveLinear,
-                       animations: {
-            action?()
-        })
+    func withAnimation(action: Action?, completion: Action? = nil) {
+        UIView.animate(
+            withDuration: Constants.animationDuration,
+            delay: .zero,
+            options: .curveEaseIn,
+            animations: { action?() },
+            completion: { _ in completion?() }
+        )
     }
     
     func applyShadow() {

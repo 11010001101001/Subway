@@ -3,33 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		843C8D26277C94F70011F30E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C8D25277C94F70011F30E /* DetailsViewController.swift */; };
+		843C8D26277C94F70011F30E /* PathDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843C8D25277C94F70011F30E /* PathDetailsViewController.swift */; };
 		845E5D0426C692E8009BFB0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E5D0326C692E8009BFB0B /* AppDelegate.swift */; };
 		845E5D0626C692E8009BFB0B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E5D0526C692E8009BFB0B /* SceneDelegate.swift */; };
 		845E5D0826C692E8009BFB0B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E5D0726C692E8009BFB0B /* MapViewController.swift */; };
 		845E5D1026C692EC009BFB0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845E5D0F26C692EC009BFB0B /* Assets.xcassets */; };
 		845E5D1326C692EC009BFB0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845E5D1126C692EC009BFB0B /* LaunchScreen.storyboard */; };
-		8486D313277D2EBA004AED60 /* DijkstrasAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486D312277D2EBA004AED60 /* DijkstrasAlgorithm.swift */; };
-		84A7B37126CB9A4400476A60 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A7B37026CB9A4400476A60 /* Model.swift */; };
-		84A7B39826CBAF8300476A60 /* BezierCurves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A7B39726CBAF8300476A60 /* BezierCurves.swift */; };
-		84E88CFA2778A51600878C39 /* BigStationsFunc .swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E88CF92778A51600878C39 /* BigStationsFunc .swift */; };
-		84E88CFC2778A67B00878C39 /* SmallStationsFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E88CFB2778A67B00878C39 /* SmallStationsFunc.swift */; };
-		84E88D002778BB2400878C39 /* VertexesAndEdgesAddingToGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E88CFF2778BB2400878C39 /* VertexesAndEdgesAddingToGraph.swift */; };
-		84E88D022778D6D900878C39 /* GraphAndEdgesCreationFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E88D012778D6D900878C39 /* GraphAndEdgesCreationFunc.swift */; };
-		84E88D042778D80400878C39 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E88D032778D80400878C39 /* Graph.swift */; };
-		C4233A7A2AE3DF640067BD44 /* VibrateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4233A792AE3DF640067BD44 /* VibrateManager.swift */; };
-		C4233A7C2AE3FE520067BD44 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4233A7B2AE3FE520067BD44 /* Constants.swift */; };
-		C48D4D622AE396EC00E7A39A /* UIView+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D4D612AE396EC00E7A39A /* UIView+extensions.swift */; };
+		84A7B39826CBAF8300476A60 /* BezierCurvesMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A7B39726CBAF8300476A60 /* BezierCurvesMap.swift */; };
 		C48D4D642AE3B2A800E7A39A /* PathCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D4D632AE3B2A800E7A39A /* PathCell.swift */; };
-		C48D4D662AE3B70200E7A39A /* UINavigationBar+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48D4D652AE3B70200E7A39A /* UINavigationBar+extensions.swift */; };
+		C49D5E9D2E81FA2700F0F8D3 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D5E9C2E81FA2700F0F8D3 /* Edge.swift */; };
+		C49D5E9F2E81FA3700F0F8D3 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D5E9E2E81FA3700F0F8D3 /* Vertex.swift */; };
+		C49D5EA12E81FF1900F0F8D3 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49D5EA02E81FF1900F0F8D3 /* Station.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		843C8D25277C94F70011F30E /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		843C8D25277C94F70011F30E /* PathDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathDetailsViewController.swift; sourceTree = "<group>"; };
 		845E5D0026C692E8009BFB0B /* SubwaySbp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SubwaySbp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845E5D0326C692E8009BFB0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		845E5D0526C692E8009BFB0B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,20 +29,17 @@
 		845E5D0F26C692EC009BFB0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845E5D1226C692EC009BFB0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		845E5D1426C692EC009BFB0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8486D312277D2EBA004AED60 /* DijkstrasAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DijkstrasAlgorithm.swift; sourceTree = "<group>"; };
-		84A7B37026CB9A4400476A60 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		84A7B39726CBAF8300476A60 /* BezierCurves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierCurves.swift; sourceTree = "<group>"; };
-		84E88CF92778A51600878C39 /* BigStationsFunc .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BigStationsFunc .swift"; sourceTree = "<group>"; };
-		84E88CFB2778A67B00878C39 /* SmallStationsFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallStationsFunc.swift; sourceTree = "<group>"; };
-		84E88CFF2778BB2400878C39 /* VertexesAndEdgesAddingToGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexesAndEdgesAddingToGraph.swift; sourceTree = "<group>"; };
-		84E88D012778D6D900878C39 /* GraphAndEdgesCreationFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphAndEdgesCreationFunc.swift; sourceTree = "<group>"; };
-		84E88D032778D80400878C39 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
-		C4233A792AE3DF640067BD44 /* VibrateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrateManager.swift; sourceTree = "<group>"; };
-		C4233A7B2AE3FE520067BD44 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C48D4D612AE396EC00E7A39A /* UIView+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+extensions.swift"; sourceTree = "<group>"; };
+		84A7B39726CBAF8300476A60 /* BezierCurvesMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BezierCurvesMap.swift; sourceTree = "<group>"; };
 		C48D4D632AE3B2A800E7A39A /* PathCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathCell.swift; sourceTree = "<group>"; };
-		C48D4D652AE3B70200E7A39A /* UINavigationBar+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+extensions.swift"; sourceTree = "<group>"; };
+		C49D5E9C2E81FA2700F0F8D3 /* Edge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
+		C49D5E9E2E81FA3700F0F8D3 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		C49D5EA02E81FF1900F0F8D3 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		C49D5E812E81E6A000F0F8D3 /* Helpers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Helpers; sourceTree = "<group>"; };
+		C49D5E8B2E81EBDF00F0F8D3 /* Controller */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Controller; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		845E5CFD26C692E8009BFB0B /* Frameworks */ = {
@@ -82,10 +71,11 @@
 		845E5D0226C692E8009BFB0B /* SubwaySpb */ = {
 			isa = PBXGroup;
 			children = (
+				C49D5E812E81E6A000F0F8D3 /* Helpers */,
 				845E5D1126C692EC009BFB0B /* LaunchScreen.storyboard */,
 				845E5D0F26C692EC009BFB0B /* Assets.xcassets */,
 				845E5D1426C692EC009BFB0B /* Info.plist */,
-				C4C469FC2AE597C200CC9440 /* AppDelegates */,
+				C4C469FC2AE597C200CC9440 /* AppDelegate */,
 				84E88CF82778A1A900878C39 /* MVC */,
 			);
 			path = SubwaySpb;
@@ -94,32 +84,73 @@
 		84E88CF82778A1A900878C39 /* MVC */ = {
 			isa = PBXGroup;
 			children = (
-				845E5D0726C692E8009BFB0B /* MapViewController.swift */,
-				843C8D25277C94F70011F30E /* DetailsViewController.swift */,
-				C48D4D632AE3B2A800E7A39A /* PathCell.swift */,
-				84A7B39726CBAF8300476A60 /* BezierCurves.swift */,
-				84E88CFB2778A67B00878C39 /* SmallStationsFunc.swift */,
-				84E88CF92778A51600878C39 /* BigStationsFunc .swift */,
-				84E88CFF2778BB2400878C39 /* VertexesAndEdgesAddingToGraph.swift */,
-				84E88D012778D6D900878C39 /* GraphAndEdgesCreationFunc.swift */,
-				84A7B37026CB9A4400476A60 /* Model.swift */,
-				84E88D032778D80400878C39 /* Graph.swift */,
-				8486D312277D2EBA004AED60 /* DijkstrasAlgorithm.swift */,
-				C48D4D612AE396EC00E7A39A /* UIView+extensions.swift */,
-				C48D4D652AE3B70200E7A39A /* UINavigationBar+extensions.swift */,
-				C4233A792AE3DF640067BD44 /* VibrateManager.swift */,
-				C4233A7B2AE3FE520067BD44 /* Constants.swift */,
+				C49D5E8B2E81EBDF00F0F8D3 /* Controller */,
+				C49D5E882E81EB3400F0F8D3 /* View */,
+				C49D5E8A2E81EBA700F0F8D3 /* Model */,
 			);
 			path = MVC;
 			sourceTree = "<group>";
 		};
-		C4C469FC2AE597C200CC9440 /* AppDelegates */ = {
+		C49D5E882E81EB3400F0F8D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C49D5E8D2E81F3F900F0F8D3 /* MapScreen */,
+				C49D5E8C2E81F3DF00F0F8D3 /* DetailsScreen */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C49D5E892E81EB4B00F0F8D3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				84A7B39726CBAF8300476A60 /* BezierCurvesMap.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		C49D5E8A2E81EBA700F0F8D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C49D5E9E2E81FA3700F0F8D3 /* Vertex.swift */,
+				C49D5E9C2E81FA2700F0F8D3 /* Edge.swift */,
+				C49D5EA02E81FF1900F0F8D3 /* Station.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C49D5E8C2E81F3DF00F0F8D3 /* DetailsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				843C8D25277C94F70011F30E /* PathDetailsViewController.swift */,
+				C49D5EA22E8200A200F0F8D3 /* Subviews */,
+			);
+			path = DetailsScreen;
+			sourceTree = "<group>";
+		};
+		C49D5E8D2E81F3F900F0F8D3 /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				845E5D0726C692E8009BFB0B /* MapViewController.swift */,
+				C49D5E892E81EB4B00F0F8D3 /* Subviews */,
+			);
+			path = MapScreen;
+			sourceTree = "<group>";
+		};
+		C49D5EA22E8200A200F0F8D3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				C48D4D632AE3B2A800E7A39A /* PathCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		C4C469FC2AE597C200CC9440 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
 				845E5D0326C692E8009BFB0B /* AppDelegate.swift */,
 				845E5D0526C692E8009BFB0B /* SceneDelegate.swift */,
 			);
-			path = AppDelegates;
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +167,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				C49D5E812E81E6A000F0F8D3 /* Helpers */,
+				C49D5E8B2E81EBDF00F0F8D3 /* Controller */,
 			);
 			name = SubwaySbp;
 			productName = AnalogMetroSpb;
@@ -191,23 +226,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C48D4D622AE396EC00E7A39A /* UIView+extensions.swift in Sources */,
-				84E88D022778D6D900878C39 /* GraphAndEdgesCreationFunc.swift in Sources */,
-				C48D4D662AE3B70200E7A39A /* UINavigationBar+extensions.swift in Sources */,
-				84A7B39826CBAF8300476A60 /* BezierCurves.swift in Sources */,
+				C49D5E9D2E81FA2700F0F8D3 /* Edge.swift in Sources */,
+				84A7B39826CBAF8300476A60 /* BezierCurvesMap.swift in Sources */,
 				845E5D0826C692E8009BFB0B /* MapViewController.swift in Sources */,
-				C4233A7A2AE3DF640067BD44 /* VibrateManager.swift in Sources */,
 				845E5D0426C692E8009BFB0B /* AppDelegate.swift in Sources */,
-				84E88D042778D80400878C39 /* Graph.swift in Sources */,
-				84E88CFA2778A51600878C39 /* BigStationsFunc .swift in Sources */,
-				8486D313277D2EBA004AED60 /* DijkstrasAlgorithm.swift in Sources */,
-				84E88D002778BB2400878C39 /* VertexesAndEdgesAddingToGraph.swift in Sources */,
+				C49D5E9F2E81FA3700F0F8D3 /* Vertex.swift in Sources */,
+				C49D5EA12E81FF1900F0F8D3 /* Station.swift in Sources */,
 				C48D4D642AE3B2A800E7A39A /* PathCell.swift in Sources */,
-				84A7B37126CB9A4400476A60 /* Model.swift in Sources */,
-				84E88CFC2778A67B00878C39 /* SmallStationsFunc.swift in Sources */,
 				845E5D0626C692E8009BFB0B /* SceneDelegate.swift in Sources */,
-				843C8D26277C94F70011F30E /* DetailsViewController.swift in Sources */,
-				C4233A7C2AE3FE520067BD44 /* Constants.swift in Sources */,
+				843C8D26277C94F70011F30E /* PathDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
