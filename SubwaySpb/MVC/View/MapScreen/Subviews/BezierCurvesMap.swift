@@ -416,7 +416,7 @@ extension BezierCurvesMap {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         super.point(inside: point, with: event)
         guard let pathWay = graph?.pathWay,
-              pathWay.count < Constants.minStationsPathCount else { return false }
+              pathWay.count < Constants.minStationsPathCount else { return true }
 
         subviews.forEach { view in
             if view.frame.contains(point) && view.tag != 0 && !pathWay.contains(view.tag) {
