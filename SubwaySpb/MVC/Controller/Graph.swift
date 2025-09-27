@@ -34,7 +34,7 @@ final class Graph<T: Hashable> {
     }
 
     private var bigStationsArrIds: Set<Int> = []
-    private var adjacencies: [Vertex<Station>:[Edge<Station>]] = [:]
+    private var adjacencies: [Vertex<Station>: [Edge<Station>]] = [:]
     private var pathDict: [Vertex<Station>: Vertex<Station>] = [:]
     private var distancies: [Vertex<Station>: Int] = [:]
     private var distanciesCopy: [Vertex<Station>: Int] = [:]
@@ -53,13 +53,13 @@ extension Graph: GraphProtocol {
 
         /// Visiting all vertexes to find the shortest path and mark visited ones
         while distancies.values.contains(Constants.maxDistance) {
-            guard let smallestOne = distancies.sorted(by: {$0.value < $1.value}).first?.key,
-                  let edges = adjacencies[smallestOne]
+            guard let closest = distancies.sorted(by: { $0.value < $1.value }).first?.key,
+                  let edges = adjacencies[closest]
             else { return }
-            shortestPath[smallestOne] = distancies[smallestOne]
+            shortestPath[closest] = distancies[closest]
             edges.forEach {
                 let oldDistance = distancies[$0.destination] ?? .zero
-                let newDistance = (distancies[smallestOne] ?? .zero) + $0.weight
+                let newDistance = (distancies[closest] ?? .zero) + $0.weight
 
                 if newDistance < oldDistance {
                     distancies[$0.destination] = newDistance
@@ -69,7 +69,7 @@ extension Graph: GraphProtocol {
                 }
             }
             // mark visited vertex by it's deleting from dict
-            distancies.removeValue(forKey: smallestOne)
+            distancies.removeValue(forKey: closest)
         }
 
         /// finding the shortest path, reversing the path to get right direction
@@ -85,21 +85,15 @@ extension Graph: GraphProtocol {
         path.reverse()
 
         /// logging path info
-        guard let startStation = path.first else { return }
-        pathDetails.append("🚦 СТАРТ: \(startStation.data.name)")
-        path.removeFirst()
-
-        let sortedDistancies = distanciesCopy.sorted(by: {$0.value < $1.value})
+        let sortedDistancies = distanciesCopy.sorted(by: { $0.value < $1.value })
         sortedDistancies.forEach {
             let station = $0.key
+            guard station != from else { return }
             let stationName = station.data.name
             let distanceToStation = $0.value
-            let destinationStationName = to.data.name
-            let isFinishStation = stationName == destinationStationName
 
-            if self.path.contains(station) && !self.pathDetails.contains(stationName) {
-                let message = isFinishStation ? "🏁 ФИНИШ: " : ""
-                self.pathDetails.append("\(message) \(distanceToStation)' до станции \(stationName)")
+            if path.contains(station) {
+                pathDetails.append("\(distanceToStation)' до станции \(stationName)")
             }
         }
     }

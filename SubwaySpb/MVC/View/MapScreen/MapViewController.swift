@@ -59,10 +59,7 @@ final class MapViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        graph.clearPath()
-        map.subviews.forEach {
-            $0.deselect()
-        }
+        map.clearPath()
     }
 }
 
@@ -119,10 +116,8 @@ private extension MapViewController {
         mapScrollView.minimumZoomScale = Constants.minZoomScale
         mapScrollView.maximumZoomScale = Constants.maxZoomScale
         mapScrollView.contentInsetAdjustmentBehavior = .always
-        mapScrollView.contentInset = .init(top: .zero, left: 20, bottom: 160, right: 20)
-        mapScrollView.contentInset.bottom = 160
-        mapScrollView.contentSize = CGSize(width: view.frame.width * 2,
-                                           height: view.frame.height * 2)
+        mapScrollView.contentInset = .init(top: .zero, left: 30, bottom: 60, right: .zero)
+        mapScrollView.contentSize = CGSize(width: view.frame.width * 2, height: view.frame.height * 2)
         mapScrollView.showsVerticalScrollIndicator = false
         mapScrollView.showsHorizontalScrollIndicator = false
     }
@@ -154,18 +149,6 @@ private extension MapViewController {
 
         VibrateManager().vibrateFeedback(style: .rigid)
     }
-    
-    func animatePath() {
-        var delay = 0.03
-        graph.path.forEach {
-            for view in map.subviews where $0.data.id == view.tag {
-                delay += 0.04
-                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    view.withAnimation { view.select() }
-                }
-            }
-        }
-    }
 
     func makeButton(title: String, action: Selector) -> UIButton {
         var configuration =  UIButton.Configuration.clearGlass()
@@ -188,13 +171,11 @@ private extension MapViewController {
             to: Vertex(data: Station(id: toId, name: graph.info[toId]!))
         )
         
-        animatePath()
+        map.showShortestPath()
     }
 
     @objc func cancelButtonTapped() {
-        guard !graph.pathWay.isEmpty else { return }
-        map.subviews.forEach { view in view.withAnimation { view.deselect() } }
-        graph.clearPath()
+        map.clearPath()
     }
 
     @objc func showDetailsTapped() {

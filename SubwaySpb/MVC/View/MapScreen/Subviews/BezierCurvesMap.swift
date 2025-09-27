@@ -9,15 +9,17 @@ final class BezierCurvesMap: UIView {
     lazy var greenStationsArr: [Station] = []
     lazy var orangeStationsArr: [Station] = []
 
+    private var dimLayer: CAShapeLayer?
+
     init(graph: GraphProtocol?) {
         self.graph = graph
         super.init(frame: .zero)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: `Small` stations
     /// small(no other stations connected i mean) stations drawing
     func drawSmallStations(
@@ -457,5 +459,67 @@ extension BezierCurvesMap {
         )
         /// adding stations connections
         graph.addVertexesCrossings()
+    }
+
+    func showShortestPath() {
+        let path = UIBezierPath()
+        var delay = 0.03
+
+        guard let startView = subviews.first(where: { $0.tag == graph?.path[0].data.id }) else { return }
+        path.move(to: startView.center)
+
+        graph?.path.forEach {
+            for view in subviews where $0.data.id == view.tag {
+                delay += 0.04
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                    view.withAnimation { view.select() }
+                }
+                path.addLine(to: view.center)
+            }
+        }
+
+        let strokedPath = path.cgPath.copy(
+            strokingWithWidth: 20,
+            lineCap: .round,
+            lineJoin: .round,
+            miterLimit: .zero
+        )
+
+        let dimPath = UIBezierPath(
+            rect: .init(
+                x: bounds.origin.x - 20,
+                y: bounds.origin.y,
+                width: bounds.width,
+                height: bounds.height
+            )
+        )
+
+        dimPath.append(UIBezierPath(cgPath: strokedPath))
+        dimPath.usesEvenOddFillRule = true
+
+        dimLayer = CAShapeLayer()
+        dimLayer?.path = dimPath.cgPath
+        dimLayer?.fillRule = .evenOdd
+        dimLayer?.fillColor = UIColor.black.withAlphaComponent(0.9).cgColor
+        dimLayer?.opacity = .zero
+
+        guard let dimLayer else { return }
+        layer.addSublayer(dimLayer)
+
+        let animation = CABasicAnimation(keyPath: "opacity")
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = delay
+        dimLayer.add(animation, forKey: "fadeIn")
+        dimLayer.opacity = 1
+    }
+
+    func clearPath() {
+        guard let graph, !graph.pathWay.isEmpty else { return }
+        subviews.forEach { $0.deselect() }
+        graph.clearPath()
+        dimLayer?.removeAllAnimations()
+        dimLayer?.removeFromSuperlayer()
+        dimLayer = nil
     }
 }
