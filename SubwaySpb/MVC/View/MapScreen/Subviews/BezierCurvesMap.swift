@@ -469,7 +469,7 @@ extension BezierCurvesMap {
         path.move(to: startView.center)
 
         graph?.path.forEach {
-            for view in subviews where $0.data.id == view.tag {
+            for view in subviews where $0.data.id == view.tag && view is UIButton {
                 delay += 0.04
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
                     view.withAnimation { view.select() }
@@ -516,7 +516,9 @@ extension BezierCurvesMap {
 
     func clearPath() {
         guard let graph, !graph.pathWay.isEmpty else { return }
-        subviews.forEach { $0.deselect() }
+        for view in subviews where view is UIButton {
+            view.deselect()
+        }
         graph.clearPath()
         dimLayer?.removeAllAnimations()
         dimLayer?.removeFromSuperlayer()
