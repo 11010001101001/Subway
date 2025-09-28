@@ -25,7 +25,6 @@ extension UIView {
         layer.removeAllAnimations()
         transform = .identity
         layer.shadowColor = UIColor.clear.cgColor
-        layer.borderWidth = 0.5
     }
     
     func select() {
@@ -34,6 +33,5 @@ extension UIView {
         layer.shadowOpacity = Constants.shadowOpacity
         layer.shadowOffset = Constants.shadowOffset
         layer.shadowRadius = Constants.shadowRadius
-        layer.borderWidth = 1
     }
 }

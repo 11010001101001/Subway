@@ -41,11 +41,11 @@ final class BezierCurvesMap: UIView {
         graph?.append(vertex: newVertex, name: name, id: id)
 
         if name == "Василеостровская" {
-            stationName.frame = CGRect(x: x+6, y: y-7, width: 65, height: 10)
+            stationName.frame = CGRect(x: x+8, y: y-7, width: 65, height: 10)
         } else if name == "Балтийская" {
             stationName.frame = CGRect(x: x+12, y: y+5, width: 65, height: 10)
         } else if name == "Адмиралтейская" {
-            stationName.frame = CGRect(x: x-57, y: y, width: 65, height: 10)
+            stationName.frame = CGRect(x: x-67, y: y, width: 65, height: 10)
         } else if name == "Лиговский проспект" {
             stationName.frame = CGRect(x: x - 25, y: y+10, width: 65, height: 10)
             stationName.textColor = .orange
@@ -65,6 +65,7 @@ final class BezierCurvesMap: UIView {
         stationName.tintColor = UIColor.black
         stationName.font = .boldSystemFont(ofSize: 6)
         stationName.sizeToFit()
+        stationName.frame.origin.x += 5
         view.addSubview(stationButton)
         view.addSubview(stationName)
     }
@@ -472,7 +473,10 @@ extension BezierCurvesMap {
             for view in subviews where $0.data.id == view.tag && view is UIButton {
                 delay += 0.04
                 DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-                    view.withAnimation { view.select() }
+                    view.withAnimation {
+                        view.layer.borderWidth = 1
+                        view.select()
+                    }
                 }
                 path.addLine(to: view.center)
             }
@@ -495,6 +499,20 @@ extension BezierCurvesMap {
         )
 
         dimPath.append(UIBezierPath(cgPath: strokedPath))
+
+        graph?.path.forEach {
+            for view in subviews where $0.data.name == (view as? UILabel)?.text {
+                let frame = CGRect(
+                    x: view.frame.minX - 1,
+                    y: view.frame.minY - 1,
+                    width: view.frame.width + 2,
+                    height: view.frame.height + 2
+                )
+                let titleRect = UIBezierPath(roundedRect: frame, cornerRadius: 3)
+                dimPath.append(titleRect)
+            }
+        }
+
         dimPath.usesEvenOddFillRule = true
 
         dimLayer = CAShapeLayer()
@@ -517,6 +535,7 @@ extension BezierCurvesMap {
     func clearPath() {
         guard let graph, !graph.pathWay.isEmpty else { return }
         for view in subviews where view is UIButton {
+            view.layer.borderWidth = 0.5
             view.deselect()
         }
         graph.clearPath()
