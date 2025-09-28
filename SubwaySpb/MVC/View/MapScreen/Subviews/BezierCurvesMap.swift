@@ -58,7 +58,7 @@ final class BezierCurvesMap: UIView {
 
         stationButton.backgroundColor = color
         stationButton.layer.cornerRadius = stationButton.frame.size.height/2
-        stationButton.layer.borderWidth = 1
+        stationButton.layer.borderWidth = 0.5
         stationButton.layer.borderColor = UIColor.white.cgColor
         stationName.text = name
         stationName.numberOfLines = 0
@@ -196,7 +196,7 @@ extension BezierCurvesMap {
 
         stationButton.backgroundColor = color
         stationButton.layer.cornerRadius = stationButton.frame.size.height/2
-        stationButton.layer.borderWidth = 1
+        stationButton.layer.borderWidth = 0.5
         stationButton.layer.borderColor = UIColor.white.cgColor
         stationName.text = name
         stationName.numberOfLines = 0
@@ -389,13 +389,13 @@ extension BezierCurvesMap {
         edgeOrange.lineWidth = 7.0
         edgeOrange.stroke()
 
-        hideLinesCrossings(165, 352, 7)
-        hideLinesCrossings(165, 303, 5)
-        hideLinesCrossings(165, 459, 5)
-        hideLinesCrossings(255, 303, 5)
-        hideLinesCrossings(245, 355, 5)
-        hideLinesCrossings(305, 384, 5)
-        hideLinesCrossings(224, 409, 5)
+        hideLinesCrossings(165, 352, 10)
+        hideLinesCrossings(165, 303, 7)
+        hideLinesCrossings(165, 459, 7)
+        hideLinesCrossings(255, 303, 7)
+        hideLinesCrossings(245, 355, 7)
+        hideLinesCrossings(305, 384, 7)
+        hideLinesCrossings(224, 409, 7)
 
         createGraph()
     }

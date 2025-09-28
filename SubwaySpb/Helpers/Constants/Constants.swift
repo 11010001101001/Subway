@@ -13,7 +13,7 @@ enum Constants {
     static let scale: CGFloat = 1.3
     static let animationDuration: TimeInterval = 0.2
     static let shadowOpacity: Float = 1
-    static let shadowRadius: CGFloat = 7
+    static let shadowRadius: CGFloat = 10
     static let shadowOffset: CGSize = .zero
     static let minStationsPathCount = 2
     static let minZoomScale: CGFloat = 0.9
